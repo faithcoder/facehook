@@ -1,9 +1,9 @@
 import { useState } from "react";
 
-import { AuthContext } from "./AuthContext";
+import { AuthContext } from "../context/index";
 
 const AuthProvider = ({ children }) => {
-  const [auth, setAuth] = useState(null);
+  const [auth, setAuth] = useState({});
   return (
     <AuthContext.Provider value={{ auth, setAuth }}>
       {children}
