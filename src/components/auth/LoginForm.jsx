@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
@@ -11,11 +12,26 @@ export default function LoginForm() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const submitForm = (formData) => {
-    console.log(formData);
-    const user = { ...formData };
-    setAuth({ user });
-    navigate("/");
+  const submitForm = async (formData) => {
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_SERVER_BASE_URL}/auth/login`,
+        formData
+      );
+
+      if (response.status === 200) {
+        const { token, user } = response.data;
+        if (token) {
+          const authToken = token.token;
+          const refreshToken = token.refreshToken;
+        }
+      }
+      const user = { ...formData };
+      setAuth({ user });
+      navigate("/");
+    } catch (error) {
+      console.error(error);
+    }
   };
   return (
     <form

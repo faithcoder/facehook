@@ -6,7 +6,7 @@ export default function PrivateRoutes() {
   const { auth } = useAuth();
   return (
     <>
-    //header area
+
       {auth.user ? (
         <Header />
         <main className="mx-auto max-w-[1020px] py-8">
