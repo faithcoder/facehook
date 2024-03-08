@@ -11,6 +11,7 @@ export default function LoginForm() {
     register,
     handleSubmit,
     formState: { errors },
+    setError,
   } = useForm();
   const submitForm = async (formData) => {
     try {
@@ -24,13 +25,17 @@ export default function LoginForm() {
         if (token) {
           const authToken = token.token;
           const refreshToken = token.refreshToken;
+          console.log(`Login time auth token: ${authToken}`);
+          setAuth({ user, authToken, refreshToken });
+          navigate("/");
         }
       }
-      const user = { ...formData };
-      setAuth({ user });
-      navigate("/");
     } catch (error) {
       console.error(error);
+      setError("root.random", {
+        type: "random",
+        message: `User with email ${formData.email} not found`,
+      });
     }
   };
   return (
@@ -49,6 +54,7 @@ export default function LoginForm() {
           id="email"
         />
       </Field>
+      <p>{errors?.root?.random?.message}</p>
       <Field label="Password" htmlFor="password" error={errors.password}>
         <input
           {...register("password", {
