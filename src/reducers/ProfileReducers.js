@@ -29,17 +29,18 @@ const profileReducer = (state = initialState, action) => {
         loading: false,
         error: action.error,
       };
-    case actions.profile.USER_DATA_EDITED:
-      return {
-        ...state,
-        user: action.payload.user,
-      };
-    case actions.profile.IMAGE_UPDATED:
-      return {
-        ...state,
-        user: action.payload.user,
-      };
+    // case actions.profile.USER_DATA_EDITED:
+    //   return {
+    //     ...state,
+    //     user: action.payload.user,
+    //   };
+    // case actions.profile.IMAGE_UPDATED:
+    //   return {
+    //     ...state,
+    //     user: action.data.user,
+    //   };
     default:
       return state;
   }
 };
+export { initialState, profileReducer };
