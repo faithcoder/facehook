@@ -1,16 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useAuth } from "../hooks/useAuth";
 import useAxios from "../hooks/useAxios";
+import { useProfile } from "../hooks/useProfile";
 
 export default function ProfilePage() {
-  const [user, setUser] = useState(null);
-  const [posts, setPosts] = useState([]);
-
+  const { state, dispatch } = useProfile();
   const { auth } = useAuth();
   const { api } = useAxios();
-
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     setLoading(true);
@@ -37,8 +33,8 @@ export default function ProfilePage() {
   }
   return (
     <div>
-      Welcome, {user?.firstName} {user?.lastName}
-      <p>You have {posts.length} posts.</p>
+      Welcome, {state?.user?.firstName} {user?.lastName}
+      <p>You have {state?.posts.length} posts.</p>
     </div>
   );
 }
