@@ -21,9 +21,10 @@ export default function ProfilePage() {
         }
       } catch (error) {
         console.error(error);
-        setError(error);
-      } finally {
-        setLoading(false);
+        dispatch({
+          type: actions.profile.DATA_FETCH_ERROR,
+          error: err.message,
+        });
       }
     };
 
@@ -35,7 +36,7 @@ export default function ProfilePage() {
   }
   return (
     <div>
-      Welcome, {state?.user?.firstName} {user?.lastName}
+      Welcome, {state?.user?.firstName} {state?.user?.lastName}
       <p>You have {state?.posts.length} posts.</p>
     </div>
   );
